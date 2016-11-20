@@ -1,0 +1,16 @@
+name: BackpackPlugin
+main: com.otacon94.bagplugin.BackpackPlugin
+version: 1.0
+author: Otacon94
+commands:
+   backpack:
+     aliases: [bp]
+     description: Delete useless items.
+permissions:
+   backplugin.*:
+     description: Gives access to all bag commands
+     children:
+       backplugin.use: true
+   backplugin.use:
+     description: Allows you to use search command
+     default: op
