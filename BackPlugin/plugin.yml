@@ -1,5 +1,5 @@
 name: BackpackPlugin
-main: com.otacon94.bagplugin.BackpackPlugin
+main: com.otacon94.backplugin.BackpackPlugin
 version: 1.0
 author: Otacon94
 commands:

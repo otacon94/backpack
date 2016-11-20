@@ -16,7 +16,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
 
-import com.otacon94.bagplugin.BackpackPlugin;
+import com.otacon94.backplugin.BackpackPlugin;
 
 public class BackPackListener implements CommandExecutor,Listener  {
 	

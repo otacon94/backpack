@@ -1,4 +1,4 @@
-package com.otacon94.bagplugin;
+package com.otacon94.backplugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
