@@ -89,7 +89,7 @@ public class BackpackManager {
 	
 	
 	/**
-	 * Saves the backpack of the given player only is the currentversion is different from the saved one
+	 * Saves the backpack of the given player only is the current backpack's version is different from the saved one
 	 * @param p - the holder of the backpack
 	 */
 	public void saveBackpackIfDifferent(Player p){
