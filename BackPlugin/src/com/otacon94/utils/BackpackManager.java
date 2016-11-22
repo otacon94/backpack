@@ -77,7 +77,7 @@ public class BackpackManager {
 	}
 
 	/**
-	 * Opens the backpack of the given player
+	 * Opens the backpack of the given player. If the player doesn't have a backpack loaded tries to load it.
 	 * @param p - the player you want to open the backpack
 	 */
 	public void openBackpack(Player p){
@@ -89,7 +89,7 @@ public class BackpackManager {
 	
 	
 	/**
-	 * Saves p's backpacks only is the currentversion is different from the saved one
+	 * Saves the backpack of the given player only is the currentversion is different from the saved one
 	 * @param p - the holder of the backpack
 	 */
 	public void saveBackpackIfDifferent(Player p){
@@ -101,7 +101,7 @@ public class BackpackManager {
 	}
 	
 	/**
-	 * Saves all backpacks into respective files
+	 * Saves all backpacks into respectives files
 	 */
 	public void saveAllBackpacks(){
 		for( Player p: plugin.getServer().getOnlinePlayers() ){
@@ -120,8 +120,11 @@ public class BackpackManager {
 	}
 	
 	/**
-	 * Loads in the HashMap<Player,Inventory> the given player's backpack. It checks first for the 
-	 * inventory file existence and in case of positive answer
+	 * Loads in the backpacks collection the given player's backpack. It checks first for the 
+	 * inventory file existence and in case of positive answer, the procedure will load the backpack 
+	 * and this one is put into the backpacks collection. It also makes check for the size of the loaded inventory:
+	 * if it's bigger than the size specified in the config file, the backpack's contente will be dropped in the
+	 * player location to avoid to lose something.
 	 * @param p - the holder of the backpack you want to load
 	 */
 	public void loadBackpack(Player p){
@@ -145,7 +148,7 @@ public class BackpackManager {
 	}
 	
 	/**
-	 * Saves the holder's backpack. It translate the Inventory to an HashMap<String,Object> with the key representing
+	 * Saves the holder's backpack. It translates the Inventory to a HashMap<String,Object> with the key representing
 	 * the value's index.
 	 * @param p - the holder of the backpack you want to save
 	 */
@@ -168,7 +171,7 @@ public class BackpackManager {
 	
 	/**
 	 * Drops all the backpack in the location of the player. It's used to avoid losing items after a downgrade of
-	 * a downgrade of the size of the backpack
+	 * of the size of the backpack
 	 * @param p - the holder's backpack
 	 */
 	private void dropBackpack(Player p){
@@ -181,7 +184,7 @@ public class BackpackManager {
 	}
 	
 	/**
-	 * Returns an inventory with the given size, of the given holder and built from the given file.
+	 * Returns an inventory with the given size, with the given player as holder and built from the given file.
 	 * @param size - the size of the inventory
 	 * @param p - the holder of the backpack
 	 * @param ymlConfig - the file from which to load the backpack
@@ -196,7 +199,7 @@ public class BackpackManager {
 	}
 	
 	/**
-	 * Saved the inventory in the given file.
+	 * Saved the inventory in the given file. The inventory is saved in this format: ItemIndex, ItemStack
 	 * @param inv - the inventory to save
 	 * @param inventoryConfig - the file in which to save 
 	 */
@@ -207,7 +210,9 @@ public class BackpackManager {
 	}
 	
 	/**
-	 * Returns the saved backpack of the given player
+	 * Returns the saved backpack of the given player. First the method get the inventory size, then
+	 * loads an inventory with the given size calling {@link #getInventory(int,Player,FileConfiguration)}
+	 * and returns it.
 	 * @param p - the holder of the backpack
 	 * @return the saved backpack of the player
 	 */
@@ -236,6 +241,7 @@ public class BackpackManager {
 	}
 	
 	/**
+	 * Returns the config file
 	 * @return the config file
 	 */
 	private File getConfigFile(){
@@ -253,6 +259,7 @@ public class BackpackManager {
 	}
 	
 	/**
+	 * Creates a new inventory for the player with the size specified in the config file.
 	 * @param player - the inventory holder
 	 * @return a new Inventory for the given Holder with size and title specified by config
 	 */
@@ -261,6 +268,7 @@ public class BackpackManager {
 	}
 	
 	/**
+	 * Creates an inventory for the player with the given size
 	 * @param player - the inventory holder
 	 * @param dim - the dimension of the inventory
 	 * @return a new Inventory for the given Holder and size. The title is specified in config file
