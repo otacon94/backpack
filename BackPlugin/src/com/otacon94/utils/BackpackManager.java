@@ -1,6 +1,8 @@
 package com.otacon94.utils;
 
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -123,22 +125,24 @@ public class BackpackManager {
 	 * Loads in the backpacks collection the given player's backpack. It checks first for the 
 	 * inventory file existence and in case of positive answer, the procedure will load the backpack 
 	 * and this one is put into the backpacks collection. It also makes check for the size of the loaded inventory:
-	 * if it's bigger than the size specified in the config file, the backpack's contente will be dropped in the
+	 * if it's bigger than the size specified in the config file, the backpack's content will be dropped in the
 	 * player location to avoid to lose something.
 	 * @param p - the holder of the backpack you want to load
 	 */
 	public void loadBackpack(Player p){
 		try {
 			File inventoryFile = getPlayerInventoryFile(p);
-			if( !inventoryFile.exists() ){
+			FileConfiguration ymlConfig = YamlConfiguration.loadConfiguration(inventoryFile);
+			if( !ymlConfig.contains(PACKSIZEPATH) ){
 				createInventoryFile(p);
 				backpacks.put(p, createInventory(p));
 				return;
 			}
-			FileConfiguration ymlConfig = YamlConfiguration.loadConfiguration(inventoryFile);
 			int size = ymlConfig.getInt(PACKSIZEPATH);
 			if( size>backpackSize ){
 				dropBackpack(p);
+				backpacks.put(p, createInventory(p));
+				return;
 			}
 			Inventory inventory = getInventory(backpackSize,p,ymlConfig);
 			backpacks.put(p, inventory);
@@ -148,7 +152,7 @@ public class BackpackManager {
 	}
 	
 	/**
-	 * Saves the holder's backpack. It translates the Inventory to a HashMap<String,Object> with the key representing
+	 * Saves the holder's backpack. It translates the Inventory to a HashMap<Integer,Object> with the key representing
 	 * the value's index.
 	 * @param p - the holder of the backpack you want to save
 	 */
@@ -178,7 +182,8 @@ public class BackpackManager {
 		Inventory inventory = getPlayerSavedBackpack(p);
 		for(int i=0;i<inventory.getContents().length;i++){
 			if( inventory.getItem(i)!=null ){
-				p.getWorld().dropItem(p.getLocation(), inventory.getItem(i));
+				ItemStack item = inventory.getItem(i);
+				p.getWorld().dropItem(p.getLocation(), item);
 			}
 		}
 	}

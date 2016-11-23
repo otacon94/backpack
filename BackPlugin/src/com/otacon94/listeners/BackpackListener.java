@@ -9,6 +9,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.otacon94.utils.BackpackManager;
@@ -61,7 +62,8 @@ public class BackpackListener implements CommandExecutor,Listener  {
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onPlayerQuit(PlayerJoinEvent event) {
+	public void onPlayerQuit(PlayerQuitEvent event) {
+		System.out.println("on player qui");
 		Player player = event.getPlayer();	
 		backpackManager.saveBackpack(player);
 	}
@@ -71,6 +73,7 @@ public class BackpackListener implements CommandExecutor,Listener  {
 		if( event.getInventory().getHolder() instanceof MenuInventoryHolder ) {
 			Player player = (Player) event.getPlayer();
 			backpackManager.saveBackpackIfDifferent(player);
+			System.out.println("chiamo inventory close");
 		}
 	}
 	
