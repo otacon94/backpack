@@ -1,10 +1,7 @@
 package com.otacon94.utils;
 
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -17,7 +14,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class BackpackManager {
 
 	private static final String INVENTORYPATH = "/inventories/";
-	private static final String INVENTORYKEY = "inventory";
 
 	private static final String PACKSIZEPATH = "size";
 	

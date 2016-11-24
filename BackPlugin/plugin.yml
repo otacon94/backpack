@@ -5,10 +5,10 @@ author: Otacon94
 commands:
    backpack:
      aliases: [bp]
-     description: Delete useless items.
+     description: Store item inside your backpack. You will not drop it once dead.
 permissions:
    backplugin.*:
-     description: Gives access to all bag commands
+     description: Gives access to all back commands
      children:
        backplugin.use: true
    backplugin.use:
