@@ -138,6 +138,7 @@ public class BackpackManager {
 			if( size>backpackSize ){
 				dropBackpack(p);
 				backpacks.put(p, createInventory(p));
+				saveBackpack(p);
 				return;
 			}
 			Inventory inventory = getInventory(backpackSize,p,ymlConfig);
